@@ -22,9 +22,21 @@ function Home() {
      setUsers(usersFrom.data)
   }
 
+  async function deletetUsers(id) {
+    await api.delete(`/usuarios/${id}`)
+
+
+     getUsers() 
+  }
+
     async function createtUsers() {
-    // const usersFrom = await api.get('/usuarios')
-    console.log(inputName)
+      await api.post('/usuarios', {
+        name: inputName.current.value,
+        age: inputAge.current.value ,
+        email: inputEmail.current.value 
+      })
+
+      getUsers()
   }
 
 
@@ -49,7 +61,7 @@ function Home() {
           <p>Nome: {user.name}</p>
           <p>Idade: {user.age}</p>
           <p>Email: {user.email}</p>
-          <button>
+          <button onClick={ () => deletetUsers(user.id)}>
             <p>X</p>
           </button>
         </div>
